@@ -1,3 +1,14 @@
+python-netfilter (0.5.7-1) unstable; urgency=low
+
+  [ Jeremy Lainé ]
+  * New upstream release.
+  * Update Standards-Version to 3.9.1 (no changes).
+
+  [ Jakub Wilk ]
+  * Add watch file.
+
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Mon, 21 Mar 2011 15:15:35 +0100
+
 python-netfilter (0.5.6-1) unstable; urgency=low
 
   * Initial upload to Debian (Closes: #521409).
