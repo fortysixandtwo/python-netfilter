@@ -1,8 +1,13 @@
-python-netfilter (0.5.6-2) UNRELEASED; urgency=low
+python-netfilter (0.5.7-1) UNRELEASED; urgency=low
 
+  [ Jeremy Lainé ]
+  * New upstream release.
+  * Update Standards-Version to 3.9.1 (no changes).
+
+  [ Jakub Wilk ]
   * Add watch file.
 
- -- Jakub Wilk <jwilk@debian.org>  Fri, 13 Nov 2009 13:58:42 +0100
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Mon, 21 Mar 2011 15:10:17 +0100
 
 python-netfilter (0.5.6-1) unstable; urgency=low
 
