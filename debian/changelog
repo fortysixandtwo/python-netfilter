@@ -1,4 +1,4 @@
-python-netfilter (0.5.7-1) UNRELEASED; urgency=low
+python-netfilter (0.5.7-1) unstable; urgency=low
 
   [ Jeremy Lainé ]
   * New upstream release.
@@ -7,7 +7,7 @@ python-netfilter (0.5.7-1) UNRELEASED; urgency=low
   [ Jakub Wilk ]
   * Add watch file.
 
- -- Jeremy Lainé <jeremy.laine@m4x.org>  Mon, 21 Mar 2011 15:10:17 +0100
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Mon, 21 Mar 2011 15:15:35 +0100
 
 python-netfilter (0.5.6-1) unstable; urgency=low
 
