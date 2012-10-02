@@ -3,7 +3,7 @@ Section: python
 Priority: optional
 Maintainer: Jeremy Lainé <jeremy.laine@m4x.org>
 Build-Depends: cdbs, debhelper (>= 5), python (>= 2.4), python-support
-Standards-Version: 3.9.1
+Standards-Version: 3.9.3
 Homepage: http://opensource.bolloretelecom.eu/projects/python-netfilter
 Vcs-Svn: svn://svn.debian.org/python-modules/packages/python-netfilter/trunk/
 Vcs-Browser: http://svn.debian.org/viewsvn/python-modules/packages/python-netfilter/trunk/
