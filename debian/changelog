@@ -1,4 +1,4 @@
-python-netfilter (0.6.1-1) UNRELEASED; urgency=low
+python-netfilter (0.6.1-1) unstable; urgency=low
 
   [ Jeremy Lainé ]
   * New upstream release.
@@ -9,7 +9,7 @@ python-netfilter (0.6.1-1) UNRELEASED; urgency=low
   [ Jakub Wilk ]
   * Use canonical URIs for Vcs-* fields.
 
- -- Jeremy Lainé <jeremy.laine@m4x.org>  Thu, 21 May 2015 11:29:59 +0200
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Tue, 26 May 2015 10:15:40 +0200
 
 python-netfilter (0.5.9-1) unstable; urgency=low
 
