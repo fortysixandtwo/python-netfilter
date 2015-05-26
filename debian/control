@@ -2,19 +2,39 @@ Source: python-netfilter
 Section: python
 Priority: optional
 Maintainer: Jeremy Lainé <jeremy.laine@m4x.org>
-Build-Depends: debhelper (>= 7), python-support, python
-Standards-Version: 3.9.3
-Homepage: http://opensource.bolloretelecom.eu/projects/python-netfilter
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               python-all,
+               python-setuptools,
+               python3-all,
+               python3-setuptools
+Standards-Version: 3.9.6
+Homepage: https://github.com/jlaine/python-netfilter
 Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/python-netfilter/trunk/
 Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/python-netfilter/trunk/
+X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.2
 
 Package: python-netfilter
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, iptables
-Description: Python modules for manipulating netfilter rules
- These Python modules act as a wrapper around iptables to manipulate
+Description: Python module for manipulating netfilter rules
+ This Python module acts as a wrapper around iptables to manipulate
  the Linux kernel's packet filtering tables.
  .
  Typical applications include building firewalls or network access
  controllers.
+ .
+ This package contains the module for Python 2.
 
+Package: python3-netfilter
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, iptables
+Description: Python module for manipulating netfilter rules
+ This Python module acts as a wrapper around iptables to manipulate
+ the Linux kernel's packet filtering tables.
+ .
+ Typical applications include building firewalls or network access
+ controllers.
+ .
+ This package contains the module for Python 3.

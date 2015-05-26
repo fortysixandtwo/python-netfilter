@@ -1,8 +1,15 @@
-python-netfilter (0.5.9-2) UNRELEASED; urgency=low
+python-netfilter (0.6.1-1) UNRELEASED; urgency=low
 
+  [ Jeremy Lainé ]
+  * New upstream release.
+  * Build both python-netfilter and python3-netfilter packages.
+  * Update Standards-Version to 3.9.6 (no changes).
+  * Update debian/copyright to reflect upstream changes.
+
+  [ Jakub Wilk ]
   * Use canonical URIs for Vcs-* fields.
 
- -- Jakub Wilk <jwilk@debian.org>  Sun, 05 May 2013 16:02:59 +0200
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Thu, 21 May 2015 11:29:59 +0200
 
 python-netfilter (0.5.9-1) unstable; urgency=low
 

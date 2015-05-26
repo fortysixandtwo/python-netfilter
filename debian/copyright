@@ -2,11 +2,11 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Debianized-By: Jeremy Lainé <jeremy.laine@m4x.org>
 Debianized-Date: Fri, 27 Mar 2009 12:39:54 +0100
 Upstream-Name: python-netfilter
-Upstream-Contact: Jeremy Lainé <jeremy.laine@bolloretelecom.eu>
-Source: http://opensource.bolloretelecom.eu/projects/python-netfilter
+Upstream-Contact: Jeremy Lainé <jeremy.laine@m4x.org>
+Source: https://github.com/jlaine/python-netfilter
 
 Files: *
-Copyright: 2007-2012 Bolloré telecom
+Copyright: 2007-2012 Bolloré telecom, 2013-2015 Jeremy Lainé
 License: GPL-3+
 
 Files: debian/*
