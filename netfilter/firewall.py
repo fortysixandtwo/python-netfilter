@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
-#
-# Copyright (C) 2007-2009 Bolloré telecom
+# 
+# python-netfilter - Python modules for manipulating netfilter rules
+# Copyright (C) 2007-2011 Bolloré Telecom
 # See AUTHORS file for a full list of contributors.
-#
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 import os
-import popen2
+import subprocess
 import sys
 
 from netfilter.rule import Rule,Match,Target
@@ -148,14 +149,16 @@ class Firewall:
 			jump='ACCEPT'))
 
 	def getNode(self):
-		p = popen2.Popen3("uname -n", True)
-		err = p.childerr.readlines()
-		out = p.fromchild.readlines()
+		p = subprocess.Popen(["uname", "-n"],
+			stdout=subprocess.PIPE, 
+			stderr=subprocess.PIPE,
+			close_fds=True)
+		out, err = p.communicate()
 		status = p.wait()
 		# check exit status
 		if not os.WIFEXITED(status) or os.WEXITSTATUS(status):
 			raise Exception("uname failed : %s" % ''.join(err))
-		node = out[0].strip()
+		node = out.strip()
 		return node
 
 	def printMessage(self, msg, interface=None):
