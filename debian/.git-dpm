@@ -6,3 +6,6 @@ c71cce237a933c97428e855b3d0decae10db41b0
 python-netfilter_0.6.1.orig.tar.gz
 b2252be7c8fb6e6b30796d51503d74215fe86648
 22659
+debianTag="debian/%e%v"
+patchedTag="patched/%e%v"
+upstreamTag="upstream/%e%u"
