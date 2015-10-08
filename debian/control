@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 9),
                python3-setuptools
 Standards-Version: 3.9.6
 Homepage: https://github.com/jlaine/python-netfilter
-Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/python-netfilter/trunk/
-Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/python-netfilter/trunk/
+Vcs-Git: git://anonscm.debian.org/python-modules/packages/python-netfilter.git
+Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/python-netfilter.git
 X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.2
 
