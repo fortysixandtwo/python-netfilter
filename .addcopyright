@@ -1,9 +1,8 @@
-python-netfilter - Python modules for manipulating netfilter rules
-Copyright (C) 2007-2011 Bolloré Telecom
-See AUTHORS file for a full list of contributors.
-
-License
-=======
+{
+'directories': ['netfilter'],
+'license': """python-netfilter - Python modules for manipulating netfilter rules
+Copyright (C) 2007-2012 Bolloré Telecom
+Copyright (C) 2013-2015 Jeremy Lainé
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,11 +16,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-Usage
-=====
-
-For usage notes, please refer to the project homepage:
-
-http://opensource.bolloretelecom.eu/projects/python-netfilter
-
+"""
+}

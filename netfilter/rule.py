@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
-# 
+#
 # python-netfilter - Python modules for manipulating netfilter rules
 # Copyright (C) 2007-2012 Bolloré Telecom
-# See AUTHORS file for a full list of contributors.
-# 
+# Copyright (C) 2013-2015 Jeremy Lainé
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 import logging
 import re
-import types
 
 import netfilter.parser
 
@@ -52,7 +51,7 @@ class Extension:
         return not result
 
     def __parse_options(self, options):
-        if isinstance(options, types.ListType):
+        if isinstance(options, list):
             bits = options
         else:
             bits = netfilter.parser.split_words(options)
@@ -72,7 +71,7 @@ class Extension:
             pos += 1
             # rewrite option to its canonical name
             tmp_opt = m.group(1)
-            if self.__rewrite_options.has_key(tmp_opt):
+            if tmp_opt in self.__rewrite_options:
                 tmp_opt = self.__rewrite_options[tmp_opt]
             cur_opt.append(tmp_opt)
             
@@ -110,7 +109,7 @@ class Extension:
         iptables for the current Extension.
         """
         bits = []
-        for opt in self.__options:
+        for opt in sorted(self.__options):
             # handle the case where this is a negated option
             m = re.match(r'^! (.*)', opt)
             if m:
@@ -119,7 +118,7 @@ class Extension:
                 bits.append("--%s" % opt)
                 
             optval = self.__options[opt]
-            if isinstance(optval, types.ListType):
+            if isinstance(optval, list):
                 bits.extend(optval)
             else:
                 bits.append(optval)
@@ -160,7 +159,7 @@ class Rule:
         self.packets = 0
         self.bytes = 0
         # assign supplied arguments
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             self.__setattr__(k, v)
     
     def __eq__(self, other):
@@ -192,7 +191,7 @@ class Rule:
             if value is not None and not isinstance(value, Target):
                 value = Target(value)
         elif name == 'matches':
-            if not isinstance(value, types.ListType):
+            if not isinstance(value, list):
                 raise Exception("matches attribute requires a list")
         self.__dict__[name] = value
 
@@ -222,17 +221,25 @@ class Rule:
         """Returns the array of arguments that would be given to
         iptables for the current Rule.
         """
+        def host_bits(opt, optval):
+            # handle the case where this is a negated value
+            m = re.match(r'^!\s*(.*)', optval)
+            if m:
+                return ['!', opt, m.group(1)]
+            else:
+                return [opt, optval]
+
         bits = []
         if self.protocol:
-            bits.extend(['-p', "%s" % self.protocol])
+            bits.extend(host_bits('-p', self.protocol))
         if self.in_interface:
-            bits.extend(['-i', "%s" % self.in_interface])
+            bits.extend(host_bits('-i', self.in_interface))
         if self.out_interface:
-            bits.extend(['-o', "%s" % self.out_interface])
+            bits.extend(host_bits('-o', self.out_interface))
         if self.source:
-            bits.extend(['-s', "%s" % self.source])
+            bits.extend(host_bits('-s', self.source))
         if self.destination:
-            bits.extend(['-d', "%s" % self.destination])
+            bits.extend(host_bits('-d', self.destination))
         for mod in self.matches:
             bits.extend(['-m', mod.name()])
             bits.extend(mod.specbits())

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# 
+#
 # python-netfilter - Python modules for manipulating netfilter rules
 # Copyright (C) 2007-2012 Bolloré Telecom
-# See AUTHORS file for a full list of contributors.
-# 
+# Copyright (C) 2013-2015 Jeremy Lainé
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
@@ -102,10 +102,11 @@ class Firewall:
         """Print program usage."""
         sys.stderr.write("Usage: %s {start|stop|restart}\n" % prog)
 
-    def acceptForward(self, interface=None):
-        self.printMessage("allow FORWARD", interface)
+    def acceptForward(self, in_interface=None, out_interface=None):
+        self.printMessage("allow FORWARD", in_interface)
         self.filter.append_rule('FORWARD', Rule(
-            in_interface=interface,
+            in_interface=in_interface,
+            out_interface=out_interface,
             jump='ACCEPT'))
 
     def acceptIcmp(self, interface=None):

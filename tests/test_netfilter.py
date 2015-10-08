@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# 
+#
 # python-netfilter - Python modules for manipulating netfilter rules
 # Copyright (C) 2007-2012 Bolloré Telecom
-# See AUTHORS file for a full list of contributors.
-# 
+# Copyright (C) 2013 Jeremy Lainé
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
@@ -154,7 +154,7 @@ class RuleTestCase(unittest.TestCase):
         self.assertEqual(rule.jump.name(), 'ACCEPT')
         self.assertEqual(rule.jump.options(), {})
         self.assertEqual(rule.specbits(), ['-j', 'ACCEPT'])
-    
+
     def testSource(self):
         rule = Rule(source='192.168.1.2', jump='ACCEPT')
         self.assertEqual(rule.protocol, None)
@@ -166,6 +166,17 @@ class RuleTestCase(unittest.TestCase):
         self.assertEqual(rule.jump.options(), {})
         self.assertEqual(rule.specbits(), ['-s', '192.168.1.2', '-j', 'ACCEPT'])
 
+    def testSourceNegated(self):
+        rule = Rule(source='! 192.168.1.2', jump='ACCEPT')
+        self.assertEqual(rule.protocol, None)
+        self.assertEqual(rule.in_interface, None)
+        self.assertEqual(rule.out_interface, None)
+        self.assertEqual(rule.source, '! 192.168.1.2')
+        self.assertEqual(rule.destination, None)
+        self.assertEqual(rule.jump.name(), 'ACCEPT')
+        self.assertEqual(rule.jump.options(), {})
+        self.assertEqual(rule.specbits(), ['!', '-s', '192.168.1.2', '-j', 'ACCEPT'])
+
     def testDestination(self):
         rule = Rule(destination='192.168.1.3', jump='REJECT')
         self.assertEqual(rule.protocol, None)
@@ -176,7 +187,18 @@ class RuleTestCase(unittest.TestCase):
         self.assertEqual(rule.jump.name(), 'REJECT')
         self.assertEqual(rule.jump.options(), {})
         self.assertEqual(rule.specbits(), ['-d', '192.168.1.3', '-j', 'REJECT'])
-    
+
+    def testDestinationNegated(self):
+        rule = Rule(destination='! 192.168.1.3', jump='REJECT')
+        self.assertEqual(rule.protocol, None)
+        self.assertEqual(rule.in_interface, None)
+        self.assertEqual(rule.out_interface, None)
+        self.assertEqual(rule.source, None)
+        self.assertEqual(rule.destination, '! 192.168.1.3')
+        self.assertEqual(rule.jump.name(), 'REJECT')
+        self.assertEqual(rule.jump.options(), {})
+        self.assertEqual(rule.specbits(), ['!', '-d', '192.168.1.3', '-j', 'REJECT'])
+
     def testSourceDestinationProtocol(self):
         rule = Rule(source='192.168.1.2', destination='192.168.1.3',
             protocol='tcp', jump='DROP')
@@ -198,10 +220,20 @@ class RuleTestCase(unittest.TestCase):
         self.assertEqual(rule.source, None)
         self.assertEqual(rule.destination, None)
         self.assertEqual(rule.specbits(), ['-i', 'eth1', '-o', 'eth2', '-j', 'REJECT'])
-    
+
+    def testInterfacesNegated(self):
+        rule = Rule(in_interface='!eth1', out_interface='!eth2',
+            jump='REJECT')
+        self.assertEqual(rule.protocol, None)
+        self.assertEqual(rule.in_interface, '!eth1')
+        self.assertEqual(rule.out_interface, '!eth2')
+        self.assertEqual(rule.source, None)
+        self.assertEqual(rule.destination, None)
+        self.assertEqual(rule.specbits(), ['!', '-i', 'eth1', '!', '-o', 'eth2', '-j', 'REJECT'])
+
     def testTargetLog(self):
         rule = Rule(jump=Target('LOG', '--log-prefix "ICMP accepted : " --log-level 4'))
-        self.assertEqual(rule.specbits(), ['-j', 'LOG', '--log-prefix', 'ICMP accepted : ', '--log-level', '4'])
+        self.assertEqual(rule.specbits(), ['-j', 'LOG', '--log-level', '4', '--log-prefix', 'ICMP accepted : '])
 
     def testMatchMark(self):
         rule = Rule(jump='ACCEPT')
@@ -222,7 +254,7 @@ class RuleTestCase(unittest.TestCase):
         rule = Rule(protocol='tcp', jump='ACCEPT')
         rule.matches.append(Match('tcp', '--tcp-flags ACK,SYN ACK'))
         self.assertEqual(rule.specbits(), ['-p', 'tcp', '-m', 'tcp', '--tcp-flags', 'ACK,SYN', 'ACK', '-j', 'ACCEPT'])
-    
+
     def testMatchTcpNotFlags(self):
         rule = Rule(protocol='tcp', jump='ACCEPT')
         rule.matches.append(Match('tcp', '--tcp-flags ! ACK,SYN ACK'))
@@ -269,8 +301,8 @@ class ParseRuleTestCase(unittest.TestCase):
         self.assertEqual(rule, Rule(
             matches=[Match('state', '--state ESTABLISHED,RELATED')]))
         self.assertEqual(rule.specbits(), ['-m', 'state', '--state', 'ESTABLISHED,RELATED'])
-        
-    def testNegation(self):
+
+    def testSourceNegated(self):
         # iptables < 1.4.3
         rule = netfilter.parser.parse_rule('-s ! 10.1.0.0/20 -j LOG --log-prefix "Martians "')
         self.assertEqual(rule, Rule(source='! 10.1.0.0/20',jump=Target('LOG', '--log-prefix "Martians "')))
@@ -278,6 +310,39 @@ class ParseRuleTestCase(unittest.TestCase):
         # iptables >= 1.4.3
         rule = netfilter.parser.parse_rule('! -s 10.1.0.0/20 -j LOG --log-prefix "Martians "')
         self.assertEqual(rule, Rule(source='! 10.1.0.0/20',jump=Target('LOG', '--log-prefix "Martians "')))
+
+    def testDestinationNegated(self):
+        # iptables < 1.4.3
+        rule = netfilter.parser.parse_rule('-d ! 10.1.0.0/20 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(destination='! 10.1.0.0/20',jump=Target('LOG', '--log-prefix "Martians "')))
+
+        # iptables >= 1.4.3
+        rule = netfilter.parser.parse_rule('! -d 10.1.0.0/20 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(destination='! 10.1.0.0/20',jump=Target('LOG', '--log-prefix "Martians "')))
+
+    def testInterfacesNegated(self):
+        # iptables < 1.4.3
+        rule = netfilter.parser.parse_rule('-i ! eth0 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(in_interface='! eth0',jump=Target('LOG', '--log-prefix "Martians "')))
+
+        rule = netfilter.parser.parse_rule('-o ! eth0 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(out_interface='! eth0',jump=Target('LOG', '--log-prefix "Martians "')))
+
+        # iptables >= 1.4.3
+        rule = netfilter.parser.parse_rule('! -i eth0 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(in_interface='! eth0',jump=Target('LOG', '--log-prefix "Martians "')))
+
+        rule = netfilter.parser.parse_rule('! -o eth0 -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(out_interface='! eth0',jump=Target('LOG', '--log-prefix "Martians "')))
+
+    def testProtocolNegated(self):
+        # iptables < 1.4.3
+        rule = netfilter.parser.parse_rule('-p ! tcp -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(protocol='! tcp',jump=Target('LOG', '--log-prefix "Martians "')))
+
+        # iptables >= 1.4.3
+        rule = netfilter.parser.parse_rule('! -p tcp -j LOG --log-prefix "Martians "')
+        self.assertEqual(rule, Rule(protocol='! tcp',jump=Target('LOG', '--log-prefix "Martians "')))
 
 class BufferedTestCase(unittest.TestCase):
     def testJump(self):
