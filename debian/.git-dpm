@@ -2,10 +2,10 @@
 c71cce237a933c97428e855b3d0decae10db41b0
 c71cce237a933c97428e855b3d0decae10db41b0
 c71cce237a933c97428e855b3d0decae10db41b0
-c71cce237a933c97428e855b3d0decae10db41b0
-python-netfilter_0.6.1.orig.tar.gz
-b2252be7c8fb6e6b30796d51503d74215fe86648
-22659
+7a2d732ba3110dda1892a4be1f57487d9ce295c7
+python-netfilter_0.6.3.orig.tar.gz
+e33e52fff0b0bbdcc5b4731a2ec76f9181656e63
+22925
 debianTag="debian/%e%v"
 patchedTag="patched/%e%v"
 upstreamTag="upstream/%e%u"
