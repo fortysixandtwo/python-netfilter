@@ -1,3 +1,9 @@
+python-netfilter (0.6.3-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Thu, 22 Oct 2015 17:00:23 +0200
+
 python-netfilter (0.6.1-1) unstable; urgency=low
 
   [ Jeremy Lainé ]
