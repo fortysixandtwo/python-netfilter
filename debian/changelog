@@ -1,3 +1,10 @@
+python-netfilter (0.6.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Switch to source format 3.0 (quilt).
+
+ -- Jeremy Lainé <jeremy.laine@m4x.org>  Mon, 15 Aug 2016 23:21:10 +0200
+
 python-netfilter (0.6.3-1) unstable; urgency=medium
 
   * New upstream release.
