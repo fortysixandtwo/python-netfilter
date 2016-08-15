@@ -2,7 +2,7 @@
 #
 # python-netfilter - Python modules for manipulating netfilter rules
 # Copyright (C) 2007-2012 Bolloré Telecom
-# Copyright (C) 2013-2015 Jeremy Lainé
+# Copyright (C) 2013-2016 Jeremy Lainé
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -161,6 +161,8 @@ class Table:
             stderr=subprocess.PIPE,
             close_fds=True)
         out, err = p.communicate()
+        out = out.decode('utf8')
+        err = err.decode('utf8')
         status = p.wait()
         # check exit status
         if not os.WIFEXITED(status) or os.WEXITSTATUS(status):

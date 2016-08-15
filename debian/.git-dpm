@@ -1,11 +1,11 @@
 # see git-dpm(1) from git-dpm package
-8c90fbc9ef8d65e5b26ffbaed0aa6723d025a59e
-8c90fbc9ef8d65e5b26ffbaed0aa6723d025a59e
-8c90fbc9ef8d65e5b26ffbaed0aa6723d025a59e
-8c90fbc9ef8d65e5b26ffbaed0aa6723d025a59e
-python-netfilter_0.6.3.orig.tar.gz
-e33e52fff0b0bbdcc5b4731a2ec76f9181656e63
-22925
+7895a05bd25d69ea8193b2e84c774f92a93ec5bd
+7895a05bd25d69ea8193b2e84c774f92a93ec5bd
+7895a05bd25d69ea8193b2e84c774f92a93ec5bd
+7895a05bd25d69ea8193b2e84c774f92a93ec5bd
+python-netfilter_0.6.4.orig.tar.gz
+dbd5bd7b6203c9a0b8e0bcff2914eda3e8371a1c
+22983
 debianTag="debian/%e%v"
 patchedTag="patched/%e%v"
 upstreamTag="upstream/%e%u"
