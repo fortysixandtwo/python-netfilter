@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Debianized-By: Jeremy Lainé <jeremy.laine@m4x.org>
 Debianized-Date: Fri, 27 Mar 2009 12:39:54 +0100
 Upstream-Name: python-netfilter
