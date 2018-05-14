@@ -12,7 +12,6 @@ Standards-Version: 3.9.8
 Homepage: https://github.com/jlaine/python-netfilter
 Vcs-Git: https://salsa.debian.org/python-team/modules/python-netfilter.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/python-netfilter
-X-Python3-Version: >= 3.2
 
 Package: python-netfilter
 Architecture: all
