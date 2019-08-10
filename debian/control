@@ -4,26 +4,12 @@ Priority: optional
 Maintainer: Jeremy Lainé <jeremy.laine@m4x.org>
 Build-Depends: debhelper (>= 9),
                dh-python,
-               python-all,
-               python-setuptools,
                python3-all,
                python3-setuptools
 Standards-Version: 3.9.8
 Homepage: https://github.com/jlaine/python-netfilter
 Vcs-Git: https://salsa.debian.org/python-team/modules/python-netfilter.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/python-netfilter
-
-Package: python-netfilter
-Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, iptables
-Description: Python module for manipulating netfilter rules (Python 2)
- This Python module acts as a wrapper around iptables to manipulate
- the Linux kernel's packet filtering tables.
- .
- Typical applications include building firewalls or network access
- controllers.
- .
- This package contains the module for Python 2.
 
 Package: python3-netfilter
 Architecture: all
