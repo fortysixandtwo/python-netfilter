@@ -8,8 +8,8 @@ Build-Depends: debhelper-compat (= 12),
                python3-setuptools
 Standards-Version: 3.9.8
 Homepage: https://github.com/jlaine/python-netfilter
-Vcs-Git: https://salsa.debian.org/python-team/modules/python-netfilter.git
-Vcs-Browser: https://salsa.debian.org/python-team/modules/python-netfilter
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-netfilter.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-netfilter
 
 Package: python3-netfilter
 Architecture: all
