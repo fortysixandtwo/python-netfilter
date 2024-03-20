@@ -65,31 +65,31 @@ class ParserTestCase(unittest.TestCase):
     def testParseChains(self):
         chains = netfilter.parser.parse_chains(iptables_data)
 
-        self.assertEquals(chains.keys(), ['INPUT', 'FORWARD', 'OUTPUT', 'firewall_forward_filter', 'firewall_input_filter'])
+        self.assertEqual(chains.keys(), ['INPUT', 'FORWARD', 'OUTPUT', 'firewall_forward_filter', 'firewall_input_filter'])
 
-        self.assertEquals(chains['INPUT']['policy'], 'DROP')
-        self.assertEquals(chains['INPUT']['bytes'], 75796)
-        self.assertEquals(chains['INPUT']['packets'], 556)
+        self.assertEqual(chains['INPUT']['policy'], 'DROP')
+        self.assertEqual(chains['INPUT']['bytes'], 75796)
+        self.assertEqual(chains['INPUT']['packets'], 556)
 
-        self.assertEquals(chains['FORWARD']['policy'], 'DROP')
-        self.assertEquals(chains['FORWARD']['bytes'], 11510)
-        self.assertEquals(chains['FORWARD']['packets'], 204)
+        self.assertEqual(chains['FORWARD']['policy'], 'DROP')
+        self.assertEqual(chains['FORWARD']['bytes'], 11510)
+        self.assertEqual(chains['FORWARD']['packets'], 204)
 
-        self.assertEquals(chains['OUTPUT']['policy'], 'ACCEPT')
-        self.assertEquals(chains['OUTPUT']['bytes'], 214582)
-        self.assertEquals(chains['OUTPUT']['packets'], 1884)
+        self.assertEqual(chains['OUTPUT']['policy'], 'ACCEPT')
+        self.assertEqual(chains['OUTPUT']['bytes'], 214582)
+        self.assertEqual(chains['OUTPUT']['packets'], 1884)
 
     def testParseRules(self):
         rules = netfilter.parser.parse_rules(iptables_data, 'INPUT')
-        self.assertEquals(len(rules), 1)
-        self.assertEquals(rules[0].jump.name(), 'firewall_input_filter')
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].jump.name(), 'firewall_input_filter')
 
         rules = netfilter.parser.parse_rules(iptables_data, 'FORWARD')
-        self.assertEquals(len(rules), 1)
-        self.assertEquals(rules[0].jump.name(), 'firewall_forward_filter')
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].jump.name(), 'firewall_forward_filter')
 
         rules = netfilter.parser.parse_rules(iptables_data, 'OUTPUT')
-        self.assertEquals(rules, [])
+        self.assertEqual(rules, [])
 
 class TargetTestCase(unittest.TestCase):
     def testInit(self):
